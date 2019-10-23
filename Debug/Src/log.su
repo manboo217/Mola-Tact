@@ -1,0 +1,2 @@
+log.c:14:6:Log_Saver	4	static
+log.c:28:6:Log_Shower	24	static

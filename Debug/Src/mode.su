@@ -1,0 +1,11 @@
+mode.c:11:6:Mode_Select	24	static
+mode.c:101:6:Mode_Zero	16	static
+mode.c:154:6:Mode_One	16	static
+mode.c:206:6:Mode_Two	16	static
+mode.c:262:6:Mode_Three	16	static
+mode.c:313:6:Mode_Four	24	static
+mode.c:515:6:Mode_Five	8	static
+mode.c:520:6:Mode_Six	4	static
+mode.c:523:6:Mode_Seven	4	static
+mode.c:526:6:Mode_Eight	4	static
+mode.c:529:6:Mode_Default	48	static

@@ -1,0 +1,2 @@
+interrupt.c:23:6:HAL_TIM_PeriodElapsedCallback	32	static
+interrupt.c:113:6:HAL_ADC_ConvHalfCpltCallback	16	static

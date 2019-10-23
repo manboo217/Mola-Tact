@@ -1,0 +1,7 @@
+encoder.c:15:6:Encoder_Init	4	static
+encoder.c:26:6:Encoder_Start	8	static
+encoder.c:33:6:Encoder_Update	16	static
+encoder.c:44:6:Calculate_Velocity	32	static
+encoder.c:70:6:Calculate_Tire_Angle	4	static
+encoder.c:78:6:Calculate_Machine_Distance	4	static
+encoder.c:88:8:mode_change	24	static

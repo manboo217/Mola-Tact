@@ -1,0 +1,4 @@
+led.c:10:6:Front_LED_Light	16	static
+led.c:19:6:Back_LED_Light	16	static
+led.c:27:6:Red_LED_Light	24	static
+led.c:36:6:LED_Light1	16	static

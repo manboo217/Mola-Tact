@@ -1,0 +1,11 @@
+search.c:17:6:search_init	8	static
+search.c:36:6:Maze_Search_Slalom	24	static
+search.c:179:6:adv_pos	4	static
+search.c:204:6:conf_route	8	static
+search.c:224:6:map_Init	16	static
+search.c:255:6:write_map	16	static
+search.c:308:6:turn_dir	16	static
+search.c:321:6:make_smap	16	static
+search.c:388:6:make_route	16	static
+search.c:475:6:store_map_in_eeprom	16	static
+search.c:494:6:load_map_from_eeprom	16	static
