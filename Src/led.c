@@ -41,3 +41,40 @@ void LED_Light1(void){
 			HAL_Delay(150);
 		}
 }
+
+void Start_LED(void){
+	uint8_t i = 0;
+		for(i=0;i<3;i++){
+			Front_LED_Light(0,0,0);
+			HAL_Delay(100);
+			Front_LED_Light(0,1,0);
+			HAL_Delay(100);
+		}
+	Back_LED_Light(0,1,0);
+}
+
+void Warning1(void){
+	while(1){
+			Back_LED_Light(1,1,1);
+			Buzzer_Scale(5000, 100);
+			printf("%fV\r\n",battery_voltage);
+			HAL_Delay(500);
+			Back_LED_Light(0,0,0);
+			Buzzer_Scale(0, 100);
+			HAL_Delay(500);
+
+		}
+}
+
+
+//FailSafe Warning
+void Warning2(void){
+	while(1){
+			Back_LED_Light(1,0,1);
+			Buzzer_Scale(7000, 100);
+			HAL_Delay(200);
+			Back_LED_Light(0,0,0);
+			Buzzer_Scale(0, 100);
+			HAL_Delay(200);
+		}
+}

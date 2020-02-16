@@ -18,7 +18,7 @@
 
 
 #define M_PI 3.141592f
-#define TIRE_DIAMETER 25.50f//24.5
+#define TIRE_DIAMETER 24.50f//24.5
 #define ONE_SECTION 180.0f
 #define HALF_SECTION 90.0f
 #define ADJUST_FRONT_DISTANCE 145.0f //145

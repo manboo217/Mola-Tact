@@ -15,29 +15,23 @@ void Mode_Select(int16_t mode){
 
 	LED_Light1();
 
-// 2019/8/22
-
+	//Set Params
 	Set_Search_Params(&trans_params, 450.0f, 2000.0f); //velocity ・ acceleration
 	Set_Search_Params(&rot_params, 450.0f, 5500.0f);//angular velocity ・ angular acceleration
 	Set_Slalom_Params(&slalom, 6000.0f, 450.0f, 13.5f, 13.5f); // 4600 450 20 20
 
 	Set_Search_Params(&trans_params_known, 1000.0f, 3800.0f); //velocity ・ acceleration
 
-/*
- 	Set_Search_Params(&rot_params, 400.0f, 5500.0f);//angular velocity ・ angular acceleration
-	Set_Slalom_Params(&slalom, 4200.0f, 400.0f, 14.0f, 14.0f); // 4600 450 20 20
-*/
 	Set_PID_Params(&trans_gain, 1.8f, 30.0f, 0.0f); //1.7f, 36.0f->10.0f, 0.0f
-	Set_PID_Params(&rot_gain, 5.00f, 65.0f,0.35f);	//φ24.5のとき0.47f, 36.0f,0.0f
+	Set_PID_Params(&rot_gain, 0.5f, 60.0f,0.0f);	//φ24.5のとき0.47f, 36.0f,0.0f
 
-	Set_PID_Params(&sensor_gain, 0.13f, 0.0f,0.0f);	//壁制御 0.007
+	Set_PID_Params(&sensor_gain, 0.13f, 0.0f,0.0f);	//	壁制御 0.007
 
-	//壁判断閾値
-	Set_Threshold(&threshold,120, 100, 100, 120);			//FL,SL,SR,FR 28,41,38,28
+	//	壁判断閾値
+	Set_Threshold(&threshold,100, 100, 100, 100);			//FL,SL,SR,FR 28,41,38,28
 
-	//壁制御閾値->右にずれたら左の閾値をあげる
+	//	壁制御閾値->右にずれたら左の閾値をあげる
 	Set_Threshold(&control_threshold,200,350,200,250);			//FL,SL,SR,FR 220,300,250,250
-
 
 	HAL_Delay(500);
 	IMU_Init();
@@ -45,7 +39,6 @@ void Mode_Select(int16_t mode){
 
 	switch(mode){
 	case 0:
-
 		gyro_calib_flag = 1;
 		   while(gyro_calib_flag){
 		   }
@@ -101,18 +94,17 @@ void Mode_Select(int16_t mode){
 void Mode_Zero(){
 	printf("\nMODE0 First Search MODE\n\r");
 
-	//----一次探索スラローム走行----
+	//	一次探索スラローム走行
 	MF.FLAG.WALL_CTRL = 1;
 	MF.FLAG.SCND = 0;
 	goal_x = GOAL_X;
 	goal_y = GOAL_Y;
 	adc_case = 0;
-	ADC_Start();
+	ADC1_Start();
 
-	//----基準値を取る----
+	//	基準値を取る
 	while(adc_case<=2){
 	}
-
 	get_base_info();
 
 	while(sensor_data.frontL < 120 || sensor_data.frontR< 120){
@@ -129,40 +121,42 @@ void Mode_Zero(){
 
 	Buzzer_Scale(1000, 100);
 	Maze_Search_Slalom(&trans_params, &trans_params_known, &rot_params);
+
+    if (MF.FLAG.FAILSAFE)
+    {
+    	Warning2();
+    }
+
 	MF.FLAG.MT_CTRL = 0;
 
 	Motor_Drive_Stop();
 	HAL_Delay(2000);
 	Buzzer_PWM_OUT( 99, 1000 );
 
-//	Log_Shower();
-/*
 	goal_x = goal_y = 0;
 
 	MF.FLAG.MT_CTRL = 1;
 	Maze_Search_Slalom(&trans_params,&trans_params_known,&rot_params);
 	MF.FLAG.MT_CTRL = 0;
 
-
 	goal_x = GOAL_X;
 	goal_y = GOAL_Y;
 
 	Motor_Drive_Stop();
-	*/
 }
 
 void Mode_One(){
 	printf("\nMODE0 First Search MODE\n\r");
 
-	//----一次探索スラローム走行----
+	//	一次探索スラローム走行
 	MF.FLAG.WALL_CTRL = 0;
 	MF.FLAG.SCND = 0;
 	goal_x = GOAL_X;
 	goal_y = GOAL_Y;
 	adc_case = 0;
-	ADC_Start();
+	ADC1_Start();
 
-	//----基準値を取る----
+	//	基準値を取る
 	while(adc_case<=2){
 	}
 
@@ -187,14 +181,11 @@ void Mode_One(){
 	Motor_Drive_Stop();
 	HAL_Delay(2000);
 
-//	Log_Shower();
-
 	goal_x = goal_y = 0;
 
 	MF.FLAG.MT_CTRL = 1;
 	Maze_Search_Slalom(&trans_params,&trans_params_known,&rot_params);
 	MF.FLAG.MT_CTRL = 0;
-
 
 	goal_x = GOAL_X;
 	goal_y = GOAL_Y;
@@ -207,8 +198,7 @@ void Mode_Two(){
 	//conf_route getwallinfo writemapとか全部消す
 	printf("\nMODE1 Second Search MODE\n\r");
 
-
-	//----一次探索スラローム走行----
+	//	一次探索スラローム走行
 	MF.FLAG.WALL_CTRL = 1;
 
 	MF.FLAG.SCND = 1;
@@ -218,10 +208,9 @@ void Mode_Two(){
 	goal_x = GOAL_X;
 	goal_y = GOAL_Y;
 	adc_case = 0;
-	ADC_Start();
+	ADC1_Start();
 
-
-	//----基準値を取る----
+	//	基準値を取る
 	while(adc_case<=2){
 	}
 
@@ -270,10 +259,10 @@ void Mode_Three(){
 	goal_x = GOAL_X;
 	goal_y = GOAL_Y;
 	adc_case = 0;
-	ADC_Start();
+	ADC1_Start();
 
 
-	//----基準値を取る----
+	//	基準値を取る
 	while(adc_case<=2){
 	}
 
@@ -529,7 +518,7 @@ void Mode_Eight(){
 void Mode_Default(){
 
 	adc_case = 0;
-		ADC_Start();
+		ADC1_Start();
 		HAL_Delay(500);
 		get_base_info();
 		while(1){

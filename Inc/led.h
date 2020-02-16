@@ -14,5 +14,7 @@ void Front_LED_Light(uint8_t, uint8_t, uint8_t);
 void Back_LED_Light(uint8_t, uint8_t, uint8_t);
 void Red_LED_Light(uint8_t, uint8_t, uint8_t, uint8_t);
 void LED_Light1(void);
-
+void Start_LED(void);
+void Warning1(void);
+void Warning2(void);
 #endif /* LED_H_ */

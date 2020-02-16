@@ -26,7 +26,7 @@ typedef struct {
 #else
 //	extern uint16_t log_counter;
 	extern log_buffer log_buff;
-	extern log_data1;
+	extern float log_data1;
 
 #endif
 

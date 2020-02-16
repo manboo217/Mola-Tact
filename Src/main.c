@@ -141,7 +141,8 @@ int main(void)
   printf("\nProgram Start!\n\r");
 
 //Initialization
-  search_init();
+  MF.FLAGS = 0;
+  Search_Init();
   IMU_Init();
   ICM20602_Init();
 
@@ -151,28 +152,12 @@ int main(void)
    HAL_TIM_Encoder_Start( &htim8, TIM_CHANNEL_ALL );
    Encoder_Init();
    HAL_TIM_Base_Start_IT(&htim2);
-
    HAL_TIM_Base_Start_IT(&htim4);
    HAL_TIM_Base_Start_IT(&htim5);
-
-//   printf("debug2!\n\r");
-   HAL_Delay(20);
-
-   HAL_GPIO_WritePin(GPIOC,GPIO_PIN_4,SET);//Left Motor IN1
-   HAL_GPIO_WritePin(GPIOA,GPIO_PIN_7,RESET);//Left Motor IN2
-   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_12,RESET);//Right Motor IN1
-   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_13,SET);//Right Motor IN2
-
    Motor_Init();
+   Start_LED();
+   Battery_Monitor();
 
-   uint8_t i = 0;
-	for(i=0;i<3;i++){
-	Front_LED_Light(0,0,0);
-	HAL_Delay(100);
-	Front_LED_Light(0,1,0);
-	HAL_Delay(100);
-	}
-	Back_LED_Light(0,1,0);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -184,7 +169,6 @@ int main(void)
 		   printf("Mode=%d\r\n", mode);
 		   Mode_Select(mode);
 
-	//  printf("offset=%f,gyro=%f\r\n",gyro_offset,(gyro.omega_z - gyro_offset));
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -330,7 +314,7 @@ static void MX_ADC2_Init(void)
   */
   hadc2.Instance = ADC2;
   hadc2.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
-  hadc2.Init.Resolution = ADC_RESOLUTION_12B;
+  hadc2.Init.Resolution = ADC_RESOLUTION_10B;
   hadc2.Init.ScanConvMode = DISABLE;
   hadc2.Init.ContinuousConvMode = DISABLE;
   hadc2.Init.DiscontinuousConvMode = DISABLE;

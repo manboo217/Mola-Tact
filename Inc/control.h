@@ -14,10 +14,8 @@
 #define CONTROL_H_
 
 typedef struct{
-	float previous_error_l;
-	float sum_l;
-	float previous_error_r;
-	float sum_r;
+	float previous_error;
+	float sum;
 }PID_info;
 
 #ifdef MAIN_C_
@@ -58,6 +56,6 @@ void Side_Wall_Control(void);
 void Front_Wall_Control(void);
 void Calculate_Target(motion*);//OK
 void integralDistance(float*, float*);//OK
-void PID_Control(motion*, motion*, motion*, PID_info* , PID_Gain*, duty*, trapezoid*,uint8_t); //OK
+void PID_Control(motion*, motion*, PID_info* , PID_Gain*, duty*, trapezoid*,uint8_t); //OK
 void Wall_Control(void);
 #endif /* CONTROL_H_ */

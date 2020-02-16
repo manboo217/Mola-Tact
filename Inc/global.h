@@ -29,30 +29,30 @@ extern DMA_HandleTypeDef hdma_adc1;
 共用・構造体とは，共用体と構造体を組み合わせたもので，
 内部の一括操作も，メンバ単位での操作も可能なものである。
 例えば，以下のmouse_flags共用・構造体のMFでは，
-MF.FLAGS = 0;と全体を一括変更できるほか，
-MF.FLAG.DECL = 1;とメンバを指定して単体で変更することも出来る。
+MF.FLAGS = 0; と全体を一括変更できるほか，
+MF.FLAG.DECL = 1; とメンバを指定して単体で変更することも出来る。
 **********/
 
 //----フラグ共用・構造体----
-typedef union {         //共用体の宣言
+typedef union {         // 共用体の宣言
   uint16_t FLAGS;
-  struct ms_flags{      //構造体の宣言
-    uint16_t MT_CTRL:1;    //モータ制御フラグ(B0)   (:1は1ビット分の意味，ビットフィールド)
-    uint16_t SCND:1;    //二次走行フラグ(B1)
+  struct ms_flags{      // 構造体の宣言
+    uint16_t MT_CTRL:1;    // モータ制御フラグ(B0)   (:1 は1ビット分の意味，ビットフィールド)
+    uint16_t SCND:1;    // 二次走行フラグ(B1)
     uint16_t REVERSE:1;    //(B2)
-    uint16_t SIDE_WALL_CTRL:1;    //制御フラグ(B3)
-    uint16_t FRONT_WALL_CTRL:1;    //加速フラグ(B4)
-    uint16_t KNOWN:1;    //減速フラグ(B5)
-    uint16_t FAILSAFE:1;     //デフォルトインターバルフラグ(B6)
-    uint16_t WALL_CTRL:1;    //予備ビット(B7)
-    uint16_t RSV8:1;    //予備ビット(B8)
-    uint16_t RSV9:1;    //予備ビット(B9)
-    uint16_t RSV10:1;   //予備ビット(B10)
-    uint16_t RSV11:1;   //予備ビット(B11)
-    uint16_t RSV12:1;   //予備ビット(B12)
-    uint16_t RSV13:1;   //予備ビット(B13)
-    uint16_t RSV14:1;   //予備ビット(B14)
-    uint16_t RSV15:1;   //予備ビット(B15)
+    uint16_t SIDE_WALL_CTRL:1;    // 制御フラグ(B3)
+    uint16_t FRONT_WALL_CTRL:1;    // 加速フラグ(B4)
+    uint16_t KNOWN:1;    // 減速フラグ(B5)
+    uint16_t FAILSAFE:1;     // デフォルトインターバルフラグ(B6)
+    uint16_t WALL_CTRL:1;    // 予備ビット(B7)
+    uint16_t RSV8:1;    // 予備ビット(B8)
+    uint16_t RSV9:1;    // 予備ビット(B9)
+    uint16_t RSV10:1;   // 予備ビット(B10)
+    uint16_t RSV11:1;   // 予備ビット(B11)
+    uint16_t RSV12:1;   // 予備ビット(B12)
+    uint16_t RSV13:1;   // 予備ビット(B13)
+    uint16_t RSV14:1;   // 予備ビット(B14)
+    uint16_t RSV15:1;   // 予備ビット(B15)
   }FLAG;
 } mouse_flags;
 
@@ -117,18 +117,18 @@ typedef struct {
 
 
 	/*回転運動*/
-	motion angle_l;				//左モータの角度所法
-	motion angle_r;				//右モータの角度情報
-	motion rot_machine;			//ロボットの角度情報
-	motion rot_target;			//ロボットの目標角度情報
+	motion angle_l;				//	左モータの角度所法
+	motion angle_r;				//	右モータの角度情報
+	motion rot_machine;			//	ロボットの角度情報
+	motion rot_target;			//	ロボットの目標角度情報
 	motion rot_params;
 
-	trapezoid rot_trapezoid_params;		//回転の台形加速情報
+	trapezoid rot_trapezoid_params;		//	回転の台形加速情報
 	PID_Gain rot_gain;				//PIDゲイン
 
 	slalom_params slalom;
 
-	duty motor_duty;			//モータのduty
+	duty motor_duty;			//	モータのduty
 
 	sensor sensor_data;
 	sensor sensor_old;
@@ -145,13 +145,13 @@ typedef struct {
 
 #else
 	extern volatile mouse_flags MF;
-	/*並進運動*/
-	extern motion trans_l;				//左モータの並進情報
-	extern motion trans_r;				//右モータの並進情報
-	extern motion trans_machine;		//ロボットの並進情報
-	extern motion trans_target;		//ロボットの目標並進情報
-	extern motion trans_params;		//並進速度・加速度情報
-	extern motion trans_params_known;		//並進速度・加速度情報
+	/*	並進運動	*/
+	extern motion trans_l;				//	左モータの並進情報
+	extern motion trans_r;				//	右モータの並進情報
+	extern motion trans_machine;		//	ロボットの並進情報
+	extern motion trans_target;		//	ロボットの目標並進情報
+	extern motion trans_params;		//	並進速度・加速度情報
+	extern motion trans_params_known;		//	並進速度・加速度情報
 
 
 	extern trapezoid trans_trapezoid_params;
@@ -195,7 +195,7 @@ typedef struct {
 #include "led.h"
 #include "log.h"
 #include "mode.h"
-#include "sensor.h"
+#include "adc.h"
 #include "search.h"
 #include "tim.h"
 #include "flash.h"
